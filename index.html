@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta charset="utf-8">
+<title>ShotStitch</title>
+<style>
+
+* {margin-right:50px;padding:0;}
+html,body{font-size:14px;font-family:Helvetica,arial,sans-serif;}
+header,video{display:block;}
+body{padding:3em;background-color:coral}
+h1{font-size:20px;margin:0 0 1em 0;color:#d6f7d6;}
+
+</style>
+<style type="text/css" media="screen"> 
+h1{text-align:center; font-size:34px}
+  #boundary{
+  display: flex;
+  
+  align-items: center;
+}
+  #content{text-align:right;width:400px;height:300px;margin:40px;font-size:18px}
+  #stage{background:#eee;width:400px;height:300px;overflow:hidden;
+         position:relative;margin:2em 0;display:flex}
+  #stage span{font-size:20px;color:#666;display:flex;padding:2em;width:50%}
+  video{width:400px;height:300px;position:absolute;top:0;left:0;}
+  #operations{position:relative;width:400px;}
+  #change{position:absolute;display:inline-block;width:100px;}
+  button{font-size:150%;margin: 3px;padding:4px;text-align:center;display:inline-block;cursor: pointer;border-radius:5px}
+  #change button{width:60px;border:none;background:#fff;}
+  
+</style>
+</head>
+<body>
+  
+  <header><h1>ShotStitch</h1></header>
+  <div id="boundary">
+  <div id="stage">
+    <video id="video" src="video\newv.mp4" type="video/mp4"display="flex" controls></video>
+    
+  </div>
+ <div id="content"><p>ShotStitch is a simplified screenshot tool that takes screenshots of a video using different operations/buttons.</p></div>
+</div>
+<div id="timer"> </div>
+  <button onclick="capture()">Capture</button>
+<button onclick="getCurTime()" type="button">Get current time position</button>
+
+ 
+
+  
+  <div id="operations"></div>
+  <canvas id="canvas" style="overflow:auto"></canvas>
+  <script>
+
+
+ document.getElementById("video").addEventListener('timeupdate', function() {
+    document.getElementById("timer").innerHTML = this.currentTime;
+    currentTime = this.currentTime;
+});
+
+
+  function capture() {
+    var canvas = document.getElementById('canvas');     
+    var video = document.getElementById('video');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+   }
+
+function getCurTime() { 
+  alert(video.currentTime);
+} 
+
+
+(function(){
+
+/* predefine zoom and rotate */
+  var zoom = 1,
+      rotate = 0;
+
+/* Grab the necessary DOM elements */
+  var stage = document.getElementById('stage'),
+      v = document.getElementsByTagName('video')[0],
+      operations = document.getElementById('operations');
+  
+/* Array of possible browser specific settings for transformation */
+  var properties = ['transform', 'WebkitTransform', 'MozTransform',
+                    'msTransform', 'OTransform'],
+      prop = properties[0];
+
+
+/* Position video */
+  v.style.left = 0;
+  v.style.top = 0;
+
+
+  if(operations){
+    operations.innerHTML =  '<button class="play">play</button>'+
+                          '<div id="chnage">' +
+                            '<button class="zoomin">Zoom-In</button>' +
+                            '<button class="zoomout">Zoom-Out</button>' +
+                            '<button class="left">Left</button>' +
+                            '<button class="right">Right</button>' +
+                            '<button class="up">Up</button>' +
+                            '<button class="down">Down</button>' +
+                            '<button class="reset">reset</button>' +
+                            '</div>'
+                          ;
+  }
+
+/* If a button was clicked (uses event delegation)...*/
+  operations.addEventListener('click',function(e){
+    t = e.target;
+    if(t.nodeName.toLowerCase()==='button'){
+
+/* Check the class name of the button and act accordingly */    
+      switch(t.className){
+
+/* Toggle play functionality and button label */    
+        case 'play':
+          if(v.paused){
+            v.play();
+            t.innerHTML = 'pause';
+          } else {
+            v.pause();
+            t.innerHTML = 'play';
+          }
+        break;
+
+/* Increase zoom and set the transformation */
+        case 'zoomin':
+          zoom = zoom + 0.1;
+          v.style[prop]='scale('+zoom+')';
+        break;
+
+/* Decrease zoom and set the transformation */
+        case 'zoomout':
+          zoom = zoom - 0.1;
+          v.style[prop]='scale('+zoom+') rotate('+rotate+'deg)';
+        break;
+
+/* Move video around by reading its left/top and altering it */
+        case 'left':
+          v.style.left = (parseInt(v.style.left,10) - 5) + 'px';
+        break;
+        case 'right':
+          v.style.left = (parseInt(v.style.left,10) + 5) + 'px';
+        break;
+        case 'up':
+          v.style.top = (parseInt(v.style.top,10) - 5) + 'px';
+        break;
+        case 'down':
+          v.style.top = (parseInt(v.style.top,10) + 5) + 'px';
+        break;
+
+/* Reset all to default */
+        case 'reset':
+          zoom = 1;
+          v.style.top = 0 + 'px';
+          v.style.left = 0 + 'px';
+          v.style[prop]='scale('+zoom+')';
+        break;
+      }        
+
+      e.preventDefault();
+    }
+  },false);
+})();
+  </script>
+</body>
+</html>
+
