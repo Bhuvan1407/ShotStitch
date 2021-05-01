@@ -1,173 +1,87 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<meta charset="utf-8">
-<title>ShotStitch</title>
-<style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-* {margin-right:50px;padding:0;}
-html,body{font-size:14px;font-family:Helvetica,arial,sans-serif;}
-header,video{display:block;}
-body{padding:3em;background-color:coral}
-h1{font-size:20px;margin:0 0 1em 0;color:#d6f7d6;}
-
-</style>
-<style type="text/css" media="screen"> 
-h1{text-align:center; font-size:34px}
-  #boundary{
-  display: flex;
-  
-  align-items: center;
-}
-  #content{text-align:right;width:400px;height:300px;margin:40px;font-size:18px}
-  #stage{background:#eee;width:400px;height:300px;overflow:hidden;
-         position:relative;margin:2em 0;display:flex}
-  #stage span{font-size:20px;color:#666;display:flex;padding:2em;width:50%}
-  video{width:400px;height:300px;position:absolute;top:0;left:0;}
-  #operations{position:relative;width:400px;}
-  #change{position:absolute;display:inline-block;width:100px;}
-  button{font-size:150%;margin: 3px;padding:4px;text-align:center;display:inline-block;cursor: pointer;border-radius:5px}
-  #change button{width:60px;border:none;background:#fff;}
-  
-</style>
-</head>
-<body>
-  
-  <header><h1>ShotStitch</h1></header>
-  <div id="boundary">
-  <div id="stage">
-    <video id="video" src="video\newv.mp4" type="video/mp4"display="flex" controls></video>
+    <title>ShotStitch</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- css-file -->
+    <link rel="stylesheet" href="./style/style.css">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
     
-  </div>
- <div id="content"><p>ShotStitch is a simplified screenshot tool that takes screenshots of a video using different operations/buttons.</p></div>
-</div>
-<div id="timer"> </div>
-  <button onclick="capture()">Capture</button>
-<button onclick="getCurTime()" type="button">Get current time position</button>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark  ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ShotStitch</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#main">Try it Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#footer">Contact us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
 
- 
+    <!-- hero-section -->
+      <div class="container hero-cont" id="hero">
+        <!-- The diagonal area -->
+        <div class="container__diagonal"></div>
+        <!-- Content -->
+        <div class="row">
+          <div class="col-lg-6 hero-desc">
+            <p><h2>A simplified screenshot tool that takes screenshots of a video using different operations/buttons.</h2></p>  </div>
+           
+          <div class="col-lg-6"><img src="./images/logo.png" alt="logo" class="logo"></div>
+          <a href="#main"><button type="button" class="btn btn-outline-light  cta-button"> Try it</button></a>
+        </div>
+      </div>
 
+      <!-- main-section -->
+      <div class="container-fluid main-cont" id="main">
+      
+        <div id="boundary">
+          <div id="stage"><video id="video" src="video\newv.mp4" type="video/mp4"display="flex" controls></video></div>
+        </div>
+        <div id="timer"> </div>
+        <div class="action-buttons">
+        <button onclick="capture()" class="btn btn-lg button-action   ">Capture</button>
+        <button onclick="getCurTime()" type="button" class="btn btn-lg button-action  ">Get current time position</button>
+
+        <div id="operations"></div>
+        </div>
+    
+     <canvas id="canvas" style="overflow:auto"></canvas>
+      </div>
   
-  <div id="operations"></div>
-  <canvas id="canvas" style="overflow:auto"></canvas>
-  <script>
+      <!-- Footer -->
 
+  <footer id="footer">
+<p class="foot">
+    <h1>Created with ❤ by <a href="https://github.com/Bhuvan1407">Bhuvan Kataria</a></h1>
+    <h4>Creative Design  🎨  by <a href="https://github.com/Abhushan01">Aditya</a></h4>
+    © Copyright 2021 Bhuvan Kataria | All rights reserved</p>
 
- document.getElementById("video").addEventListener('timeupdate', function() {
-    document.getElementById("timer").innerHTML = this.currentTime;
-    currentTime = this.currentTime;
-});
-
-
-  function capture() {
-    var canvas = document.getElementById('canvas');     
-    var video = document.getElementById('video');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-   }
-
-function getCurTime() { 
-  alert(video.currentTime);
-} 
-
-
-(function(){
-
-/* predefine zoom and rotate */
-  var zoom = 1,
-      rotate = 0;
-
-/* Grab the necessary DOM elements */
-  var stage = document.getElementById('stage'),
-      v = document.getElementsByTagName('video')[0],
-      operations = document.getElementById('operations');
+  </footer>
   
-/* Array of possible browser specific settings for transformation */
-  var properties = ['transform', 'WebkitTransform', 'MozTransform',
-                    'msTransform', 'OTransform'],
-      prop = properties[0];
-
-
-/* Position video */
-  v.style.left = 0;
-  v.style.top = 0;
-
-
-  if(operations){
-    operations.innerHTML =  '<button class="play">play</button>'+
-                          '<div id="chnage">' +
-                            '<button class="zoomin">Zoom-In</button>' +
-                            '<button class="zoomout">Zoom-Out</button>' +
-                            '<button class="left">Left</button>' +
-                            '<button class="right">Right</button>' +
-                            '<button class="up">Up</button>' +
-                            '<button class="down">Down</button>' +
-                            '<button class="reset">reset</button>' +
-                            '</div>'
-                          ;
-  }
-
-/* If a button was clicked (uses event delegation)...*/
-  operations.addEventListener('click',function(e){
-    t = e.target;
-    if(t.nodeName.toLowerCase()==='button'){
-
-/* Check the class name of the button and act accordingly */    
-      switch(t.className){
-
-/* Toggle play functionality and button label */    
-        case 'play':
-          if(v.paused){
-            v.play();
-            t.innerHTML = 'pause';
-          } else {
-            v.pause();
-            t.innerHTML = 'play';
-          }
-        break;
-
-/* Increase zoom and set the transformation */
-        case 'zoomin':
-          zoom = zoom + 0.1;
-          v.style[prop]='scale('+zoom+')';
-        break;
-
-/* Decrease zoom and set the transformation */
-        case 'zoomout':
-          zoom = zoom - 0.1;
-          v.style[prop]='scale('+zoom+') rotate('+rotate+'deg)';
-        break;
-
-/* Move video around by reading its left/top and altering it */
-        case 'left':
-          v.style.left = (parseInt(v.style.left,10) - 5) + 'px';
-        break;
-        case 'right':
-          v.style.left = (parseInt(v.style.left,10) + 5) + 'px';
-        break;
-        case 'up':
-          v.style.top = (parseInt(v.style.top,10) - 5) + 'px';
-        break;
-        case 'down':
-          v.style.top = (parseInt(v.style.top,10) + 5) + 'px';
-        break;
-
-/* Reset all to default */
-        case 'reset':
-          zoom = 1;
-          v.style.top = 0 + 'px';
-          v.style.left = 0 + 'px';
-          v.style[prop]='scale('+zoom+')';
-        break;
-      }        
-
-      e.preventDefault();
-    }
-  },false);
-})();
-  </script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="./script/app.js">  </script>
+    
+  </body>
 </html>
-

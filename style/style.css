@@ -1,0 +1,219 @@
+/* base-value */
+html,body{
+    font-size:14px;
+    font-family:Helvetica,arial,sans-serif;
+}
+
+nav{
+    font-size: 20px;
+    background: rgb(252, 71, 6);
+}
+
+.navbar-brand{
+font-size: 30px;
+}
+
+header,video{
+    display:block;
+}
+
+body{
+    background-color:whitesmoke;
+}
+
+h2{
+    text-align:left;
+    font-size:30px;
+    margin:0 0 1em 0;
+    color:white;
+    line-height: 1.5em;
+}
+
+
+/* hero-section */
+.hero-cont {
+    /* Used to position the diagonal area */
+    position: relative;
+  
+}
+
+.container__diagonal {
+    /* Absolute position */
+    left: 0px;
+    position: absolute;
+    top: 70px;
+
+    /* Take full size */
+    height: 100%;
+    width: 100%;
+
+    /* Create diagonal sides */
+    transform: skewY(-5deg);
+
+    /* Background color */
+    background-color: rgb(252, 72, 6);;
+
+    /* Displayed under the main content */
+    z-index: -1;
+}
+
+.cta-button{
+    height: 60px;
+    margin-left:100px;
+    width: 100px;
+    
+}
+
+.col-lg-6{
+    display: flex;
+    justify-content: center;
+}
+
+.hero-desc{
+    padding:100px 5px 0 100px;
+    margin-top: 100px;
+    
+}
+
+.logo{
+    width:400px;
+    height: 400px;
+    padding:30px;
+}
+
+/* media-query */
+@media screen and (max-width: 500px) {
+ .hero-desc{
+     padding: 50px;
+ }
+
+ h2{
+     line-height: 1.2em;
+     font-size: 25px;
+ }
+ 
+ .logo{
+     width: 250px;
+     height: 250px;
+     padding: 0;
+ }
+
+ .cta-button{
+     margin-top:20px;
+     margin-left: 150px;
+ }
+ .hero-cont{
+     padding:10px;
+     background: coral;
+ }
+
+ .hero-desc{
+     margin-top: 0;
+ }
+ .container__diagonal {
+     visibility: hidden;
+ }
+
+
+
+
+
+ 
+}
+
+/* main-section */
+.main-cont{
+    background:coral;
+    margin-top: 200px;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+#boundary{
+  display: flex;
+  justify-content: center;
+}
+
+#stage{
+    background:#eee;
+    width:400px;
+    height:300px;
+    overflow:hidden;
+    position:relative;
+    margin:2em 0;
+    display:flex
+}
+
+#stage span{
+    font-size:20px;
+    color:#666;
+    display:flex;
+    padding:2em;
+    width:50%
+}
+
+video{
+    width:400px;
+    height:300px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#canvas{
+    margin:50px;
+    height:400px;
+    width:800px;
+
+}
+
+
+#operations{
+    display:flex;
+    flex-direction:row;
+}
+
+
+
+
+button,.button-action{
+    font-size:150%;
+    margin: 3px;
+    padding:4px;
+    text-align:center;
+    cursor: pointer;
+    border-radius:5px;
+    border: none;
+    background: #f2b713;
+    width:120px;
+    height:70px;
+}
+
+.button-action{
+    width:200px;
+}
+
+.button-action:hover{
+    background:white;
+}
+
+button:hover{
+    background:white;
+}
+
+/* footer-section */
+#footer{
+    padding: 7% 15%;
+    text-align:center;
+    background:#000;
+    color:#fff;
+}
+
+h1,h4{
+    line-height:2em;
+}
+a{
+    color:blue;
+    text-decoration:none;
+}
