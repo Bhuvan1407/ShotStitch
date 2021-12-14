@@ -11,11 +11,9 @@
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    alert(video.currentTime);
    }
 
-function getCurTime() { 
-  alert(video.currentTime);
-} 
 
 
 (function(){
